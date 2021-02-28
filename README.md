@@ -28,72 +28,40 @@
 -->
 
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
+
   <!--<a href="https://github.com/BeAnMo/transfigure-json>
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>-->
 
-  <h3 align="center">Transfigure-JSON</h3>
+# **Transfigure-JSON**
 
-  <p align="center">
-    Transfigure-JSON is a data transformation library that provides JSON compatible data a fluent interface for a chainable, Array-like API.
-    <br />
-    <br />
-    <a href="https://github.com/BeAnMo/transfigure-json/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/BeAnMo/transfigure-json/issues">Request Feature</a>
-  </p>
-</p>
+[![NPM](https://nodei.co/npm/transfigure-json.png?compact=true)](https://npm.im/transfigure-json)
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-        <a href="#Usage">Usage</a>
-        <ul>
-            <li><a href="#reddit-comments">Reddit Comments</a></li>
-        </ul>
-    </li>
-    <li>
-      <a href="#documentation">Documentation</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#document-interface">Document Interface</a></li>
-        <li><a href="#instantiation">Instantiation</a></li>
-        <li><a href="#iterating">Iterating</a>
-        <li><a href="#json-path">JSON Path</a></li>
-        <li><a href="#breadth-first-stream">Breadth First Stream</a></li>
-      </ul>
-    </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
+Transfigure-JSON is a data transformation library that provides JSON compatible data a fluent interface for a chainable, Array-like API.
+<br />
+<a href="https://github.com/BeAnMo/transfigure-json/issues">Report Bug</a>
+·
+<a href="https://github.com/BeAnMo/transfigure-json/issues">Request Feature</a>
+.
+<a href="#docs-toc">Documentation</a>
 
-<!-- ABOUT THE PROJECT -->
+## **Installation**
 
-## About The Project
+From NPM
 
-Currently, transfigure-json only supports JSON-compatible objects.
+```sh
+npm install transfigure-json
+```
 
-For a refresher, a JSON-compatible object is one of:
+From CDN
 
-- Booleans
-- Numbers
-- Strings
-- Objects (of valid JSON)
-- Arrays (of valid JSON)
+```html
+<script src="https://cdn.jsdelivr.net/npm/transfigure-json"></script>
+```
 
-<!-- USAGE EXAMPLES -->
 <hr />
 
-## Usage
+## **Usage**
 
 ### Reddit Comments
 
@@ -132,20 +100,36 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 7. Returns the current document.
 8. The current document is easily handled by native array methods.
 
-<hr />
+## **Caveats**
 
-## Documentation
+Currently, transfigure-json only supports JSON-compatible objects.
 
-### Installation
+For a refresher, a JSON-compatible object is one of:
 
-1. Install from NPM
-   ```sh
-   npm install transfigure-json
-   ```
+- Booleans
+- Numbers
+- Strings
+- Objects (of valid JSON)
+- Arrays (of valid JSON)
 
----
+<!-- TABLE OF CONTENTS -->
+<details open="open" id="#docs-toc">
+  <summary><h2 style="display: inline-block; font-weight:bolder">Documentation</h2></summary>
+  <ol>
+    <li><a href="#document-interface">Document Interface</a></li>
+    <li><a href="#instantiation">Instantiation</a></li>
+    <li><a href="#iterating">Iterating</a>
+    <li><a href="#json-path">JSON Path</a></li>
+    <li><a href="#breadth-first-stream">Breadth First Stream</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-### Document Interface
+<!-- USAGE EXAMPLES -->
+
+### **Document Interface**
 
 <div class="highlight highlight-source-js">
 <pre>
@@ -172,7 +156,9 @@ InstanceInterface = {
 </pre>
 </div>
 
-### Instantiation
+<hr />
+
+### **Instantiation**
 
 Options:
 | Key | ValueType | Default | Description |
@@ -192,62 +178,64 @@ const test = {
 };
 
 // "new" is optional.
-const doc = new Transfigurator(test);
-const doc = Transfigurator(test);
+const docInstance = new Transfigurator(test);
+const docInstance = Transfigurator(test);
 // Use a custom delimeter.
-const doc = Transfigurator(test, { delimeter: "***" });
+const docInstance = Transfigurator(test, { delimeter: "***" });
 ```
 
 If passed invalid JSON, JsonData will throw an error. If passed a Number/String/Boolean/null, JsonData will simply return the given argument.
 
 A document instance wraps the given object. For testing/debugging, consider deep-cloning an object before passing it to the constructor to prevent unwanted mutations.
 
-- **<div id="instance-get">TransfiguratorInstance.get</div>**
+- **<div id="instance-get">.get</div>**
   - Returns the document at the given <a href="#json-path">path</a>. If not path is provided, `get` returns the full document. If the `useConstructor` option is set to `true`, a new TransfiguratorInstance will be returned if the given path points to an Object or Array.
-- **<div id="instance-set">TransfiguratorInstance.set</div>**
+- **<div id="instance-set">.set</div>**
   - Mutates the Transfigurator instance at the given path with a value and returns the instance.
 
 #### Static methods
 
-- **<div id="static-clone">Transfigurator.clone</div>**
+- **<div id="static-clone">.clone</div>**
   - Performs a deep clone of the given object.
-- **<div id="static-schema">Transfigurator.schema</div>**
+- **<div id="static-schema">.schema</div>**
   - Replaces the primitive values of an object with strings denoting the type ("string", "number", "boolean", "null").
 
-### Iterating
+<hr />
+
+### **Iterating**
 
 Part of the goal of transfigure-json is to give users an interface comparable to native Array methods, providing a concise, chainable API. Rather than copy Array method names, transfigure-json uses alternates to ensure a user can bounce between transfigure-json and Array methods without confusion.
 
-| Array   | Transfigure-JSON  |
-| ------- | --------- |
-| reduce  | fold      |
-| map     | transform |
-| filter  | prune     |
-| forEach | each      |
-| find    | select    |
+| Array   | Transfigure-JSON |
+| ------- | ---------------- |
+| reduce  | fold             |
+| map     | transform        |
+| filter  | prune            |
+| forEach | each             |
+| find    | select           |
 
 The callbacks for all iterative instance methods bind the current instance to `this`.
 
-- **<div id="iterating-fold">TransfiguratorInstance.fold</div>**
+- **<div id="iterating-fold">.fold</div>**
   - Object keys are assumed to be unordered, which means there is no `Array.reduceRight` equivalent.
-- **<div id="iterating-transform">TransfiguratorInstance.transform</div>**
+- **<div id="iterating-transform">.transform</div>**
   - Maps a procedure to each value in a doc.
-- **<div id="iterating-prune">TransfiguratorInstance.prune</div>**
+- **<div id="iterating-prune">.prune</div>**
   - "Prunes" a tree returning all values that match the predicate function but maintains the shape of the original document. This may return sparse arrays.
-- **<div id="iterating-each">TransfiguratorInstance.each</div>**
+- **<div id="iterating-each">.each</div>**
   - Applies the given procedure to each value but does not return a result, but instead returns the instance to allow for chaining.
-- **<div id="iterating-select">TransfiguratorInstance.select</div>**
+- **<div id="iterating-select">.select</div>**
   - Returns the first value that matches the predicate or `undefined`.
-- **<div id="iterating-smoosh">TransfiguratorInstance.smoosh</div>**
+- **<div id="iterating-smoosh">.smoosh</div>**
   - Completely flattens an object to a single of Object of `{...string<JFPath>: any }`.
-- **<div id="iterating-toggle">TransfiguratorInstance.toggle</div>**
+- **<div id="iterating-toggle">.toggle</div>**
   - Toggles the root object between Object and Array. Toggling Object->Array creates `[...[string<key>, any]]` and Array->Object creates `{...number: any}`.
-- **<div id="iterating-toStream">TransfiguratorInstance.toStream</div>**
+- **<div id="iterating-toStream">.toStream</div>**
   - Exposes a <a href="#breadth-first-stream">breath-first stream</a> of the instance.
 
----
+<hr />
 
-### JSON Path
+### **JSON Path**
 
 A Path is a convenience wrapper to abstract the swapping of path strings and arrays and path navigation.
 
@@ -268,22 +256,22 @@ InstanceInterface = {
 </pre>
 </div>
 
-- **toString**
+- **.toString**
   - Returns the current path array as a string separated by the current delimiter.
-- **toArray**
+- **.toArray**
   - Return the current path array.
-- **join**
+- **.join**
   - With no argument provided, `path.join` calls `path.toString`. if a string argument is provided, it will join the current path array by the given string.
-- **clone**
+- **.clone**
   - Creates a clone using the current path array and delimiter.
-- **slice**
+- **.slice**
   - Mimics `Array.slice` & `String.slice`. Returns a new path instance based on the selection of `from` and `to`.
-- **append**
+- **.append**
   - Mutates the current instance by appending a key at the end of the current path. Returns the instance.
 
----
+<hr />
 
-### Breadth First Stream
+### **Breadth First Stream**
 
 Transfigure-JSON uses a breadth-first stream of primitives under the hood. The algorithm will always emit primitive values instead of their encompassing Objects/Arrays. Array indexes are cast as strings.
 
@@ -305,18 +293,16 @@ InstanceInterface = {
 </pre>
 </div>
 
-- **BFStreamInstance.setQueue**
-  - Loads the internal queue by unique paths for each key.
-- **BFStreamInstance.empty**
+- **.empty**
   - Returns `true` if the queue is empty.
-- **BFStreamInstance.next**
+- **.next**
   - Returns the next `StreamItem` within an object. Returns `null` when the stream has ended.
 
-<br />
+<hr />
 
 <!-- CONTRIBUTING -->
 
-## Contributing
+## **Contributing**
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -328,13 +314,17 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- LICENSE -->
 
-## License
+<hr />
+
+## **License**
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 
-## Contact
+<hr />
+
+## **Contact**
 
 Project Link: [https://github.com/BeAnMo/transfigure-json](https://github.com/BeAnMo/transfigure-json)
 
