@@ -1,9 +1,12 @@
 {
-    "name": "json-find",
-    "version": "3.0.1",
-    "description": "Provides a JSON Object an Array like interface.",
-    "repository": "beanmo/json-find",
-    "main": "json-find.js",
+    "name": "jsoniter",
+    "version": "1.0.0",
+    "description": "Provides a JSON object a fluid, Array-like interface.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BeAnMo/jsoniter.git"
+    },
+    "main": "dist/jsoniter.js",
     "directories": {
         "test": "test"
     },
@@ -12,10 +15,21 @@
         "build": "rollup --config"
     },
     "keywords": [
+        "jsoniter",
         "json",
-        "smoosh"
+        "smoosh",
+        "data processing",
+        "data transformation",
+        "iterable"
     ],
-    "author": "Ben Morin",
+    "author": {
+        "name": "Ben Morin",
+        "url": "https://BeAnMo.github.io"
+    },
+    "bugs": {
+        "url": "https://github.com/BeAnMo/jsoniter/issues"
+    },
+    "homepage": "https://github.com/BeAnMo/jsoniter#readme",
     "license": "ISC",
     "devDependencies": {
         "@babel/cli": "^7.12.10",

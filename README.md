@@ -107,7 +107,8 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
   .then((json) => {
     const rows = new JsonFind(json)
       .prune(({ key }) => "author score created body".includes(key)) // 1
-      .fold((acc, { path, key, value }) => { // 2
+      .fold((acc, { path, key, value }) => {
+        // 2
         const root = path
           .slice(0, -1) // 3
           .join("/"); // 4
@@ -149,24 +150,23 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 <div class="highlight highlight-source-js">
 <pre>
 JsonFindInterface = {
-&emsp;  <a href="#static:clone">clone</a>(Object | Array) => Object | Array,
-&emsp;  <a href="#static:schema">schema</a>(Object | Array) => Object | Array
+    <a href="#static-clone">clone</a>(Object | Array) => Object | Array,
+    <a href="#static-schema">schema</a>(Object | Array) => Object | Array
 }
 <br />
 <a href="#instantiation">JsonFindInstance</a> = JsonFind(doc: Object | Array, options?: Object)
 <br />
-<a href="#instance-get">get</a> 
 InstanceInterface = {
-  <a href="#instance:get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
-&emsp;  <a href="#instance:set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
-&emsp;  <a href="#iterating:fold">fold</a>(proc: (accumulator: any, item: <a href="#breadth-first-stream">StreamItem</a>) => any, accumulator: any) => any,
-&emsp;  <a href="#iterating:transform">transform</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
-&emsp;  <a href="#iterating:prune">prune</a>(predicate: (item: StreamItem) => boolean) => JsonFindInstance,
-&emsp;  <a href="#iterating:each">each</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
-&emsp;  <a href="#iterating:select">select</a>(predicate: (item: StreamItem) => boolean) => any,
-&emsp;  <a href="#iterating:smoosh">smoosh</a>() => JsonFindInstance,
-&emsp;  <a href="#iterating:toggle">toggle</a>() => JsonFindInstance,
-&emsp;  <a href="#iterating:toStream">toStream</a>() => <a href="#breadth-first-stream">BFSteamInstance</a>
+    <a href="#instance-get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
+    <a href="#instance-set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
+    <a href="#iterating-fold">fold</a>(proc: (accumulator: any, item: <a href="#breadth-first-stream">StreamItem</a>) => any, accumulator: any) => any,
+    <a href="#iterating-transform">transform</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
+    <a href="#iterating-prune">prune</a>(predicate: (item: StreamItem) => boolean) => JsonFindInstance,
+    <a href="#iterating-each">each</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
+    <a href="#iterating-select">select</a>(predicate: (item: StreamItem) => boolean) => any,
+    <a href="#iterating-smoosh">smoosh</a>() => JsonFindInstance,
+    <a href="#iterating-toggle">toggle</a>() => JsonFindInstance,
+    <a href="#iterating-toStream">toStream</a>() => <a href="#breadth-first-stream">BFSteamInstance</a>
 }
 
 </pre>
@@ -204,16 +204,16 @@ If passed invalid JSON, JsonData will throw an error. If passed a Number/String/
 
 A document instance wraps the given object. For testing/debugging, consider deep-cloning an object before passing it to the constructor to prevent unwanted mutations.
 
-- **<div id="instance:get">JsonFindInstance.get</div>**
+- **<div id="instance-get">JsonFindInstance.get</div>**
   - Returns the document at the given <a href="#json-path">path</a>. If not path is provided, `get` returns the full document. If the `useConstructor` option is set to `true`, a new JsonFindInstance will be returned if the given path points to an Object or Array.
-- **<div id="instance:set">JsonFindInstance.set</div>**
+- **<div id="instance-set">JsonFindInstance.set</div>**
   - Mutates the JsonFind instance at the given path with a value and returns the instance.
 
 #### Static methods
 
-- **<div id="static:clone">JsonFind.clone</div>**
+- **<div id="static-clone">JsonFind.clone</div>**
   - Performs a deep clone of the given object.
-- **<div id="static:schema">JsonFind.schema</div>**
+- **<div id="static-schema">JsonFind.schema</div>**
   - Replaces the primitive values of an object with strings denoting the type ("string", "number", "boolean", "null").
 
 ### Iterating
@@ -230,21 +230,21 @@ Part of the goal of jsoniter is to give users an interface comparable to native 
 
 The callbacks for all iterative instance methods bind the current instance to `this`.
 
-- **<div id="iterating:fold">JsonFindInstance.fold</div>**
+- **<div id="iterating-fold">JsonFindInstance.fold</div>**
   - Object keys are assumed to be unordered, which means there is no `Array.reduceRight` equivalent.
-- **<div id="iterating:transform">JsonFindInstance.transform</div>**
+- **<div id="iterating-transform">JsonFindInstance.transform</div>**
   - Maps a procedure to each value in a doc.
-- **<div id="iterating:prune">JsonFindInstance.prune</div>**
+- **<div id="iterating-prune">JsonFindInstance.prune</div>**
   - "Prunes" a tree returning all values that match the predicate function but maintains the shape of the original document. This may return sparse arrays.
-- **<div id="iterating:each">JsonFindInstance.each</div>**
+- **<div id="iterating-each">JsonFindInstance.each</div>**
   - Applies the given procedure to each value but does not return a result, but instead returns the instance to allow for chaining.
-- **<div id="iterating:select">JsonFindInstance.select</div>**
+- **<div id="iterating-select">JsonFindInstance.select</div>**
   - Returns the first value that matches the predicate or `undefined`.
-- **<div id="iterating:smoosh">JsonFindInstance.smoosh</div>**
+- **<div id="iterating-smoosh">JsonFindInstance.smoosh</div>**
   - Completely flattens an object to a single of Object of `{...string<JFPath>: any }`.
-- **<div id="iterating:toggle">JsonFindInstance.toggle</div>**
+- **<div id="iterating-toggle">JsonFindInstance.toggle</div>**
   - Toggles the root object between Object and Array. Toggling Object->Array creates `[...[string<key>, any]]` and Array->Object creates `{...number: any}`.
-- **<div id="iterating:toStream">JsonFindInstance.toStream</div>**
+- **<div id="iterating-toStream">JsonFindInstance.toStream</div>**
   - Exposes a <a href="#breadth-first-stream">breath-first stream</a> of the instance.
 
 ---
@@ -260,12 +260,12 @@ JsonPathInstance = new JsonPath(string | string[], delimeter: string)
 ValidPath = JsonPathInstance | string | string[]
 <br />
 InstanceInterface = {
-&emsp;  toString() => string
-&emsp;  toArray() => Array,
-&emsp;  join(delimiter?: string) => string,
-&emsp;  clone() => JsonPathInstance,
-&emsp;  slice(from?: number, to?: number) => JsonPathInstance,
-&emsp;  append(key: string | number) => JsonPathInstance
+    toString() => string
+    toArray() => Array,
+    join(delimiter?: string) => string,
+    clone() => JsonPathInstance,
+    slice(from?: number, to?: number) => JsonPathInstance,
+    append(key: string | number) => JsonPathInstance
 }
 </pre>
 </div>
@@ -294,25 +294,25 @@ JsonFind uses a breadth-first stream of primitives under the hood. The algorithm
 BFStreamInstance = new BFStream(Object | Array, delimeter: string)
 <br />
 StreamItem = Object<{
-&emsp;  path: <a href="#json-path">JsonPathInstance</a>,
-&emsp;  key: string,
-&emsp;  value: null | boolean | number | string
+    path: <a href="#json-path">JsonPathInstance</a>,
+    key: string,
+    value: null | boolean | number | string
 }>
 <br />
 InstanceInterface = {
-&emsp;  private setQueue(path: JsonPath, key: string[]) => BFStreamInstance,
-&emsp;  empty() => boolean,
-&emsp;  next() => StreamItem
+    private setQueue(path: JsonPath, key: string[]) => BFStreamInstance,
+    empty() => boolean,
+    next() => StreamItem
 }
 </pre>
 </div>
 
-- **setQueue**
+- **BFStreamInstance.setQueue**
   - Loads the internal queue by unique paths for each key.
-- **empty**
+- **BFStreamInstance.empty**
   - Returns `true` if the queue is empty.
-- **next**
-  - Advances to the next key:value pair within an object.
+- **BFStreamInstance.next**
+  - Returns the next `StreamItem` within an object. Returns `null` when the stream has ended.
 
 <br />
 

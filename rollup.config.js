@@ -4,25 +4,25 @@ export default {
     input: 'src/index.js',
     output: [
         {
-            file: 'dist/json-find.node.js',
+            file: 'dist/jsoniter.js',
             format: 'cjs',
             exports: 'auto'
         },
         {
-            file: 'dist/json-find.node.min.js',
+            file: 'dist/jsoniter.min.js',
             format: 'cjs',
             plugins: [terser()],
             exports: 'auto'
         },
         {
-            file: 'dist/json-find.browser.js',
+            file: 'dist/jsoniter.browser.js',
             format: 'iife',
-            name: 'JsonFind',
+            name: 'JsonIter',
         },
         {
-            file: 'dist/json-find.browser.min.js',
+            file: 'dist/jsoniter.browser.min.js',
             format: 'iife',
-            name: 'JsonFind',
+            name: 'JsonIter',
             plugins: [terser()]
         }
     ]
