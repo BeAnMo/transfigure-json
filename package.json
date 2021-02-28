@@ -6,8 +6,10 @@
         "type": "git",
         "url": "git+https://github.com/BeAnMo/transfigure-json.git"
     },
-    "files": ["dist"],
-    "main": "dist/transfigure-json.js",
+    "files": [
+        "dist"
+    ],
+    "main": "dist/index.js",
     "directories": {
         "test": "test"
     },
