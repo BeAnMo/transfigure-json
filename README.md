@@ -148,15 +148,15 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 
 <div class="highlight highlight-source-js">
 <pre>
-JsonFindInterface = &#123;
+JsonFindInterface = {
 &emsp;  <a href="#static:clone">clone</a>(Object | Array) => Object | Array,
 &emsp;  <a href="#static:schema">schema</a>(Object | Array) => Object | Array
-&#125;
+}
 <br />
 <a href="#instantiation">JsonFindInstance</a> = JsonFind(doc: Object | Array, options?: Object)
 <br />
-InstanceInterface = &#123;
-&emsp;  <a href="#instance:get">get</a>(path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
+InstanceInterface = {
+&emsp;  <a href="#instance:get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
 &emsp;  <a href="#instance:set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
 &emsp;  <a href="#iterating:fold">fold</a>(proc: (accumulator: any, item: <a href="#breadth-first-stream">StreamItem</a>) => any, accumulator: any) => any,
 &emsp;  <a href="#iterating:transform">transform</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
@@ -166,7 +166,7 @@ InstanceInterface = &#123;
 &emsp;  <a href="#iterating:smoosh">smoosh</a>() => JsonFindInstance,
 &emsp;  <a href="#iterating:toggle">toggle</a>() => JsonFindInstance,
 &emsp;  <a href="#iterating:toStream">toStream</a>() => <a href="#breadth-first-stream">BFSteamInstance</a>
-&#125;
+}
 
 </pre>
 </div>
