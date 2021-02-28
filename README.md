@@ -54,7 +54,7 @@
       <a href="#about-the-project">About The Project</a>
     </li>
     <li>
-        <a href="#Examples">Examples</a>
+        <a href="#Usage">Usage</a>
         <ul>
             <li><a href="#reddit-comments">Reddit Comments</a></li>
         </ul>
@@ -97,33 +97,26 @@ For a refresher, a JSON-compatible object is one of:
 
 ### Reddit Comments
 
-Imagine your projectct needs to extract the text & scores from reddit comments. Comment pages are arbitrarily nested arrays of objects of arrays of objects which can require dozens of lines of looping & null checking to extract the necessary data.
+Imagine your project needs to extract the text & scores from reddit comments. Comment pages are arbitrarily nested <a href="https://raw.githubusercontent.com/BeAnMo/jsoniter/main/tests/reddit-comments.json">arrays of objects of arrays of objects</a> which can require dozens of lines of looping & null checking to extract the necessary data.
 
-JsonFind does that work with a couple of chained method calls.
+JsonFind does that work with a few chained methods.
 
 ```js
-await fetch(`${REDDIT_COMMENTS_URL}.json`)
+fetch(`${REDDIT_COMMENTS_URL}.json`)
   .then((r) => r.json())
   .then((json) => {
     const rows = new JsonFind(json)
-      // 1
-      .prune(({ key }) => "author score created body".includes(key))
-      // 2
+      .prune(({ key }) => "author score created body".includes(key)) // 1
       .fold((acc, { path, key, value }) => {
+        // 2
         const root = path
-          // 3
-          .slice(0, -1)
-          // 4
-          .join("/");
-        // 5
-        return acc.set(`${root}.${key}`, value);
+          .slice(0, -1) // 3
+          .join("/"); // 4
+        return acc.set(`${root}.${key}`, value); // 5
       }, new JsonFind({}))
-      // 6
-      .toggle()
-      // 7
-      .get()
-      // 8
-      .map(([key, values]) => values);
+      .toggle() // 6
+      .get() // 7
+      .map(([key, values]) => values); // 8
 
     console.table(rows);
   })
@@ -137,7 +130,7 @@ await fetch(`${REDDIT_COMMENTS_URL}.json`)
 5. Update and return the accumulator Object `{...<path/to/object>: {...<key>: value } }`.
 6. Converts the flattened tree into an array of `[...[key, { created, score, body, author }]]`.
 7. Returns the current document.
-8. Can now use native Array methods for further processing.
+8. The current document is now easily handled by native array methods.
 
 <hr />
 
