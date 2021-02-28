@@ -33,19 +33,19 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <!--<a href="https://github.com/BeAnMo/json-find">
+  <!--<a href="https://github.com/BeAnMo/jsoniter>
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>-->
 
-  <h3 align="center">Json-Find</h3>
+  <h3 align="center">jsoniter</h3>
 
   <p align="center">
-    Json-Find is a data transformation library that gives JSON-compatible data chainable, Array-inspired methods.
+    jsoniter is a data transformation library that gives JSON-compatible data chainable, Array-inspired methods.
     <br />
     <br />
-    <a href="https://github.com/BeAnMo/json-find/issues">Report Bug</a>
+    <a href="https://github.com/BeAnMo/jsoniter/issues">Report Bug</a>
     ·
-    <a href="https://github.com/BeAnMo/json-find/issues">Request Feature</a>
+    <a href="https://github.com/BeAnMo/jsoniter/issues">Request Feature</a>
   </p>
 </p>
 
@@ -85,7 +85,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Currently, Json-Find only supports JSON-compatible objects.
+Currently, jsoniter only supports JSON-compatible objects.
 
 For a refresher, a JSON-compatible object is one of:
 - Booleans
@@ -147,7 +147,7 @@ await fetch(`${REDDIT_COMMENTS_URL}.json`)
 
 1. Install from NPM
    ```sh
-   npm install json-find
+   npm install jsoniter
    ```
 
 ---
@@ -201,9 +201,9 @@ Options:
 
 ```js
     /* CommonJS */
-    const JsonFind = require('json-find/dist/json-find.node');
+    const JsonFind = require('jsoniter/dist/jsoniter.node');
     /* ES6, production version */
-    import JsonFind from 'json-find/dist/json-find.node.min';
+    import JsonFind from 'jsoniter/dist/jsoniter.node.min';
     /* Available as JsonFind when using a script tag */
 
     const test = {
@@ -236,7 +236,7 @@ A document instance wraps the given object. For testing/debugging, consider deep
 
 ### Iterating
 
-Part of the goal of Json-Find is to give users an interface comparable to native Array methods, providing a concise, chainable API. Rather than copy Array method names, Json-Find uses alternates to ensure a user can bounce between Json-Find and Array methods without confusion.
+Part of the goal of jsoniter is to give users an interface comparable to native Array methods, providing a concise, chainable API. Rather than copy Array method names, jsoniter uses alternates to ensure a user can bounce between jsoniter and Array methods without confusion.
 
 | Array | JsonFind |
 |-----|-----------|
@@ -349,7 +349,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/BeAnMo/json-find](https://github.com/BeAnMo/json-find)
+Project Link: [https://github.com/BeAnMo/jsoniter](https://github.com/BeAnMo/jsoniter)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
