@@ -148,14 +148,14 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 
 <div class="highlight highlight-source-js">
 <pre>
-JsonFindInterface = {
-&emsp;<a href="#static:clone">clone</a>(Object | Array) => Object | Array,
-&emsp;<a href="#static:schema">schema</a>(Object | Array) => Object | Array
-}
+JsonFindInterface = &#123;
+&emsp;  <a href="#static:clone">clone</a>(Object | Array) => Object | Array,
+&emsp;  <a href="#static:schema">schema</a>(Object | Array) => Object | Array
+&#125;
 <br />
 <a href="#instantiation">JsonFindInstance</a> = JsonFind(doc: Object | Array, options?: Object)
 <br />
-InstanceInterface = {
+InstanceInterface = &#123;
 &emsp;  <a href="#instance:get">get</a>(path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
 &emsp;  <a href="#instance:set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
 &emsp;  <a href="#iterating:fold">fold</a>(proc: (accumulator: any, item: <a href="#breadth-first-stream">StreamItem</a>) => any, accumulator: any) => any,
@@ -166,7 +166,7 @@ InstanceInterface = {
 &emsp;  <a href="#iterating:smoosh">smoosh</a>() => JsonFindInstance,
 &emsp;  <a href="#iterating:toggle">toggle</a>() => JsonFindInstance,
 &emsp;  <a href="#iterating:toStream">toStream</a>() => <a href="#breadth-first-stream">BFSteamInstance</a>
-}
+&#125;
 
 </pre>
 </div>
@@ -259,12 +259,12 @@ JsonPathInstance = new JsonPath(string | string[], delimeter: string)
 ValidPath = JsonPathInstance | string | string[]
 <br />
 InstanceInterface = {
-&emsp;toString() => string
-&emsp;toArray() => Array,
-&emsp;join(delimiter?: string) => string,
-&emsp;clone() => JsonPathInstance,
-&emsp;slice(from?: number, to?: number) => JsonPathInstance,
-&emsp;append(key: string | number) => JsonPathInstance
+&emsp;  toString() => string
+&emsp;  toArray() => Array,
+&emsp;  join(delimiter?: string) => string,
+&emsp;  clone() => JsonPathInstance,
+&emsp;  slice(from?: number, to?: number) => JsonPathInstance,
+&emsp;  append(key: string | number) => JsonPathInstance
 }
 </pre>
 </div>
@@ -293,15 +293,15 @@ JsonFind uses a breadth-first stream of primitives under the hood. The algorithm
 BFStreamInstance = new BFStream(Object | Array, delimeter: string)
 <br />
 StreamItem = Object<{
-&emsp;path: <a href="#json-path">JsonPathInstance</a>,
-&emsp;key: string,
-&emsp;value: null | boolean | number | string
+&emsp;  path: <a href="#json-path">JsonPathInstance</a>,
+&emsp;  key: string,
+&emsp;  value: null | boolean | number | string
 }>
 <br />
 InstanceInterface = {
-&emsp;private setQueue(path: JsonPath, key: string[]) => BFStreamInstance,
-&emsp;empty() => boolean,
-&emsp;next() => StreamItem
+&emsp;  private setQueue(path: JsonPath, key: string[]) => BFStreamInstance,
+&emsp;  empty() => boolean,
+&emsp;  next() => StreamItem
 }
 </pre>
 </div>
