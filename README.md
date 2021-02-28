@@ -155,7 +155,7 @@ JsonFindInterface = {
 <br />
 <a href="#instantiation">JsonFindInstance</a> = JsonFind(doc: Object | Array, options?: Object)
 <br />
-<a href="#instance:get">get</a> 
+<a href="#instance-get">get</a> 
 InstanceInterface = {
   <a href="#instance:get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
 &emsp;  <a href="#instance:set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
