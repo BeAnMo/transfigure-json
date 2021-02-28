@@ -97,7 +97,7 @@ For a refresher, a JSON-compatible object is one of:
 
 ### Reddit Comments
 
-Imagine your project needs to extract the text & scores from reddit comments. Comment pages are arbitrarily nested <a href="https://raw.githubusercontent.com/BeAnMo/jsoniter/main/tests/reddit-comments.json">arrays of objects of arrays of objects</a> which can require dozens of lines of looping & null checking to extract the necessary data.
+Imagine your project needs to extract the text & scores from reddit comments. Comment pages are arbitrarily nested <a href="https://raw.githubusercontent.com/BeAnMo/jsoniter/main/tests/reddit-comments.json" target="_blank" rel="noopener noreferrer">arrays of objects of arrays of objects</a> which can require dozens of lines of looping & null checking to extract the necessary data.
 
 JsonFind does that work with a few chained methods.
 
@@ -107,8 +107,7 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
   .then((json) => {
     const rows = new JsonFind(json)
       .prune(({ key }) => "author score created body".includes(key)) // 1
-      .fold((acc, { path, key, value }) => {
-        // 2
+      .fold((acc, { path, key, value }) => { // 2
         const root = path
           .slice(0, -1) // 3
           .join("/"); // 4
@@ -130,7 +129,7 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 5. Update and return the accumulator Object `{...<path/to/object>: {...<key>: value } }`.
 6. Converts the flattened tree into an array of `[...[key, { created, score, body, author }]]`.
 7. Returns the current document.
-8. The current document is now easily handled by native array methods.
+8. The current document is easily handled by native array methods.
 
 <hr />
 
