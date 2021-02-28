@@ -113,8 +113,8 @@ For a refresher, a JSON-compatible object is one of:
 - Arrays (of valid JSON)
 
 <!-- TABLE OF CONTENTS -->
-<details open="open" id="#docs-toc">
-  <summary><h2 style="display: inline-block; font-weight:bolder">Documentation</h2></summary>
+<details open="open">
+  <summary><h2 id="docs-toc" style="display: inline-block; font-weight:bolder">Documentation</h2></summary>
   <ol>
     <li><a href="#document-interface">Document Interface</a></li>
     <li><a href="#instantiation">Instantiation</a></li>
