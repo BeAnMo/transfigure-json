@@ -9,7 +9,7 @@ describe('JsonPath', () => {
     it('should resolve to the correct string & array values', () => {
         const t0 = new JsonPath('hello.this.0.is.1.a.test', '.');
 
-        expect(t0.toString()).toBe('hello.this.0.is.1.a.test');
+        expect(t0.toString()).toBe('hello.this.0.is.1.a.tes');
         expect(t0.toArray()).toStrictEqual('hello.this.0.is.1.a.test'.split('.'));
     });
 
