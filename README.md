@@ -34,10 +34,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>-->
 
-  <h3 align="center">transfigure-json</h3>
+  <h3 align="center">Transfigure-JSON</h3>
 
   <p align="center">
-    transfigure-json is a data transformation library that provides JSON compatible data a fluent interface for a chainable, Array-like API.
+    Transfigure-JSON is a data transformation library that provides JSON compatible data a fluent interface for a chainable, Array-like API.
     <br />
     <br />
     <a href="https://github.com/BeAnMo/transfigure-json/issues">Report Bug</a>
