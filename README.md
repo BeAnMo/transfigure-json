@@ -30,19 +30,19 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <!--<a href="https://github.com/BeAnMo/jsoniter>
+  <!--<a href="https://github.com/BeAnMo/transfigure-json>
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>-->
 
-  <h3 align="center">jsoniter</h3>
+  <h3 align="center">transfigure-json</h3>
 
   <p align="center">
-    jsoniter is a data transformation library that provides JSON compatible data a fluent interface for a chainable, Array-like API.
+    transfigure-json is a data transformation library that provides JSON compatible data a fluent interface for a chainable, Array-like API.
     <br />
     <br />
-    <a href="https://github.com/BeAnMo/jsoniter/issues">Report Bug</a>
+    <a href="https://github.com/BeAnMo/transfigure-json/issues">Report Bug</a>
     ·
-    <a href="https://github.com/BeAnMo/jsoniter/issues">Request Feature</a>
+    <a href="https://github.com/BeAnMo/transfigure-json/issues">Request Feature</a>
   </p>
 </p>
 
@@ -80,7 +80,7 @@
 
 ## About The Project
 
-Currently, jsoniter only supports JSON-compatible objects.
+Currently, transfigure-json only supports JSON-compatible objects.
 
 For a refresher, a JSON-compatible object is one of:
 
@@ -97,15 +97,15 @@ For a refresher, a JSON-compatible object is one of:
 
 ### Reddit Comments
 
-Imagine your project needs to extract the text & scores from reddit comments. Comment pages are arbitrarily nested <a href="https://raw.githubusercontent.com/BeAnMo/jsoniter/main/tests/reddit-comments.json" target="_blank" rel="noopener noreferrer">arrays of objects of arrays of objects</a> which can require dozens of lines of looping & null checking to extract the necessary data.
+Imagine your project needs to extract the text & scores from reddit comments. Comment pages are arbitrarily nested <a href="https://raw.githubusercontent.com/BeAnMo/transfigure-json/main/tests/reddit-comments.json" target="_blank" rel="noopener noreferrer">arrays of objects of arrays of objects</a> which can require dozens of lines of looping & null checking to extract the necessary data.
 
-JsonFind does that work with a few chained methods.
+Transfigure-JSON does that work with a few chained methods.
 
 ```js
 fetch(`${REDDIT_COMMENTS_URL}.json`)
   .then((r) => r.json())
   .then((json) => {
-    const rows = new JsonFind(json)
+    const rows = new Transfigurator(json)
       .prune(({ key }) => "author score created body".includes(key)) // 1
       .fold((acc, { path, key, value }) => {
         // 2
@@ -113,7 +113,7 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
           .slice(0, -1) // 3
           .join("/"); // 4
         return acc.set(`${root}.${key}`, value); // 5
-      }, new JsonFind({}))
+      }, new Transfigurator({}))
       .toggle() // 6
       .get() // 7
       .map(([key, values]) => values); // 8
@@ -140,7 +140,7 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 
 1. Install from NPM
    ```sh
-   npm install jsoniter
+   npm install transfigure-json
    ```
 
 ---
@@ -149,23 +149,23 @@ fetch(`${REDDIT_COMMENTS_URL}.json`)
 
 <div class="highlight highlight-source-js">
 <pre>
-JsonFindInterface = {
+TransfiguratorInterface = {
     <a href="#static-clone">clone</a>(Object | Array) => Object | Array,
     <a href="#static-schema">schema</a>(Object | Array) => Object | Array
 }
 <br />
-<a href="#instantiation">JsonFindInstance</a> = JsonFind(doc: Object | Array, options?: Object)
+<a href="#instantiation">TransfiguratorInstance</a> = Transfigurator(doc: Object | Array, options?: Object)
 <br />
 InstanceInterface = {
-    <a href="#instance-get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
-    <a href="#instance-set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
+    <a href="#instance-get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => TransfiguratorInstance | Object | Array,
+    <a href="#instance-set">set</a>(path: ValidPath, value: any) => TransfiguratorInstance,
     <a href="#iterating-fold">fold</a>(proc: (accumulator: any, item: <a href="#breadth-first-stream">StreamItem</a>) => any, accumulator: any) => any,
-    <a href="#iterating-transform">transform</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
-    <a href="#iterating-prune">prune</a>(predicate: (item: StreamItem) => boolean) => JsonFindInstance,
-    <a href="#iterating-each">each</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
+    <a href="#iterating-transform">transform</a>(proc: (item: StreamItem) => any) => TransfiguratorInstance,
+    <a href="#iterating-prune">prune</a>(predicate: (item: StreamItem) => boolean) => TransfiguratorInstance,
+    <a href="#iterating-each">each</a>(proc: (item: StreamItem) => any) => TransfiguratorInstance,
     <a href="#iterating-select">select</a>(predicate: (item: StreamItem) => boolean) => any,
-    <a href="#iterating-smoosh">smoosh</a>() => JsonFindInstance,
-    <a href="#iterating-toggle">toggle</a>() => JsonFindInstance,
+    <a href="#iterating-smoosh">smoosh</a>() => TransfiguratorInstance,
+    <a href="#iterating-toggle">toggle</a>() => TransfiguratorInstance,
     <a href="#iterating-toStream">toStream</a>() => <a href="#breadth-first-stream">BFSteamInstance</a>
 }
 
@@ -178,14 +178,12 @@ Options:
 | Key | ValueType | Default | Description |
 |-----|-----------|---------|-------------|
 | delimeter | `string` | `"."` | The delimeter for paths (e.g. 'rootKey.0.aChildKey' or 'rootKey/0/aChildKey'). |
-| useConstructor | `boolean` | `false` | Return a JsonFind instance when retrieving a specifc key instead of the raw value (only for Objects/Arrays). |
+| useConstructor | `boolean` | `false` | Return a Transfigurator instance when retrieving a specifc key instead of the raw value (only for Objects/Arrays). |
 
 ```js
-/* CommonJS */
-const JsonFind = require("jsoniter/dist/jsoniter.node");
-/* ES6, production version */
-import JsonFind from "jsoniter/dist/jsoniter.node.min";
-/* Available as JsonFind when using a script tag */
+/* Commons JS compatible */
+import Transfigurator from "transfigure-json";
+/* Available as Transfigurator when using a script tag */
 
 const test = {
   a: 1,
@@ -194,33 +192,33 @@ const test = {
 };
 
 // "new" is optional.
-const doc = new JsonFind(test);
-const doc = JsonFind(test);
+const doc = new Transfigurator(test);
+const doc = Transfigurator(test);
 // Use a custom delimeter.
-const doc = JsonFind(test, { delimeter: "***" });
+const doc = Transfigurator(test, { delimeter: "***" });
 ```
 
 If passed invalid JSON, JsonData will throw an error. If passed a Number/String/Boolean/null, JsonData will simply return the given argument.
 
 A document instance wraps the given object. For testing/debugging, consider deep-cloning an object before passing it to the constructor to prevent unwanted mutations.
 
-- **<div id="instance-get">JsonFindInstance.get</div>**
-  - Returns the document at the given <a href="#json-path">path</a>. If not path is provided, `get` returns the full document. If the `useConstructor` option is set to `true`, a new JsonFindInstance will be returned if the given path points to an Object or Array.
-- **<div id="instance-set">JsonFindInstance.set</div>**
-  - Mutates the JsonFind instance at the given path with a value and returns the instance.
+- **<div id="instance-get">TransfiguratorInstance.get</div>**
+  - Returns the document at the given <a href="#json-path">path</a>. If not path is provided, `get` returns the full document. If the `useConstructor` option is set to `true`, a new TransfiguratorInstance will be returned if the given path points to an Object or Array.
+- **<div id="instance-set">TransfiguratorInstance.set</div>**
+  - Mutates the Transfigurator instance at the given path with a value and returns the instance.
 
 #### Static methods
 
-- **<div id="static-clone">JsonFind.clone</div>**
+- **<div id="static-clone">Transfigurator.clone</div>**
   - Performs a deep clone of the given object.
-- **<div id="static-schema">JsonFind.schema</div>**
+- **<div id="static-schema">Transfigurator.schema</div>**
   - Replaces the primitive values of an object with strings denoting the type ("string", "number", "boolean", "null").
 
 ### Iterating
 
-Part of the goal of jsoniter is to give users an interface comparable to native Array methods, providing a concise, chainable API. Rather than copy Array method names, jsoniter uses alternates to ensure a user can bounce between jsoniter and Array methods without confusion.
+Part of the goal of transfigure-json is to give users an interface comparable to native Array methods, providing a concise, chainable API. Rather than copy Array method names, transfigure-json uses alternates to ensure a user can bounce between transfigure-json and Array methods without confusion.
 
-| Array   | JsonFind  |
+| Array   | Transfigure-JSON  |
 | ------- | --------- |
 | reduce  | fold      |
 | map     | transform |
@@ -230,21 +228,21 @@ Part of the goal of jsoniter is to give users an interface comparable to native 
 
 The callbacks for all iterative instance methods bind the current instance to `this`.
 
-- **<div id="iterating-fold">JsonFindInstance.fold</div>**
+- **<div id="iterating-fold">TransfiguratorInstance.fold</div>**
   - Object keys are assumed to be unordered, which means there is no `Array.reduceRight` equivalent.
-- **<div id="iterating-transform">JsonFindInstance.transform</div>**
+- **<div id="iterating-transform">TransfiguratorInstance.transform</div>**
   - Maps a procedure to each value in a doc.
-- **<div id="iterating-prune">JsonFindInstance.prune</div>**
+- **<div id="iterating-prune">TransfiguratorInstance.prune</div>**
   - "Prunes" a tree returning all values that match the predicate function but maintains the shape of the original document. This may return sparse arrays.
-- **<div id="iterating-each">JsonFindInstance.each</div>**
+- **<div id="iterating-each">TransfiguratorInstance.each</div>**
   - Applies the given procedure to each value but does not return a result, but instead returns the instance to allow for chaining.
-- **<div id="iterating-select">JsonFindInstance.select</div>**
+- **<div id="iterating-select">TransfiguratorInstance.select</div>**
   - Returns the first value that matches the predicate or `undefined`.
-- **<div id="iterating-smoosh">JsonFindInstance.smoosh</div>**
+- **<div id="iterating-smoosh">TransfiguratorInstance.smoosh</div>**
   - Completely flattens an object to a single of Object of `{...string<JFPath>: any }`.
-- **<div id="iterating-toggle">JsonFindInstance.toggle</div>**
+- **<div id="iterating-toggle">TransfiguratorInstance.toggle</div>**
   - Toggles the root object between Object and Array. Toggling Object->Array creates `[...[string<key>, any]]` and Array->Object creates `{...number: any}`.
-- **<div id="iterating-toStream">JsonFindInstance.toStream</div>**
+- **<div id="iterating-toStream">TransfiguratorInstance.toStream</div>**
   - Exposes a <a href="#breadth-first-stream">breath-first stream</a> of the instance.
 
 ---
@@ -287,7 +285,7 @@ InstanceInterface = {
 
 ### Breadth First Stream
 
-JsonFind uses a breadth-first stream of primitives under the hood. The algorithm will always emit primitive values instead of their encompassing Objects/Arrays. Array indexes are cast as strings.
+Transfigure-JSON uses a breadth-first stream of primitives under the hood. The algorithm will always emit primitive values instead of their encompassing Objects/Arrays. Array indexes are cast as strings.
 
 <div class="highlight highlight-source-js">
 <pre>
@@ -338,7 +336,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Project Link: [https://github.com/BeAnMo/jsoniter](https://github.com/BeAnMo/jsoniter)
+Project Link: [https://github.com/BeAnMo/transfigure-json](https://github.com/BeAnMo/transfigure-json)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

@@ -7,7 +7,7 @@ import { splitPath, isCompound, getAtPath, setAtPath, isArray, getType } from '.
  */
 function Doc(doc, options = {}) {
     if (!isCompound(doc)) {
-        throw new Error(`Instantiating JsonFind requires an Object or an Array.`);
+        throw new Error(`Instantiating TransfigureJSON requires an Object or an Array.`);
     } else if (!(this instanceof Doc)) {
         return new Doc(doc, options);
     }

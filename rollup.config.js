@@ -4,25 +4,25 @@ export default {
     input: 'src/index.js',
     output: [
         {
-            file: 'dist/jsoniter.js',
+            file: 'dist/transfigure.js',
             format: 'cjs',
             exports: 'auto'
         },
         {
-            file: 'dist/jsoniter.min.js',
+            file: 'dist/transfigure-json.min.js',
             format: 'cjs',
             plugins: [terser()],
             exports: 'auto'
         },
         {
-            file: 'dist/jsoniter.browser.js',
+            file: 'dist/transfigure-json.browser.js',
             format: 'iife',
-            name: 'JsonIter',
+            name: 'Transfigurator',
         },
         {
-            file: 'dist/jsoniter.browser.min.js',
+            file: 'dist/transfigure-json.browser.min.js',
             format: 'iife',
-            name: 'JsonIter',
+            name: 'Transfigurator',
             plugins: [terser()]
         }
     ]

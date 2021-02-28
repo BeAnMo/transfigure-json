@@ -1,12 +1,12 @@
 {
-    "name": "jsoniter",
+    "name": "transfigure-json",
     "version": "1.0.0",
-    "description": "Provides a JSON object a fluid, Array-like interface.",
+    "description": "Transfigure JSON. Provides JSON objects a fluent, Array-like interface for data transformations.",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/BeAnMo/jsoniter.git"
+        "url": "git+https://github.com/BeAnMo/transfigure-json.git"
     },
-    "main": "dist/jsoniter.js",
+    "main": "dist/transfigure-json.js",
     "directories": {
         "test": "test"
     },
@@ -15,21 +15,30 @@
         "build": "rollup --config"
     },
     "keywords": [
-        "jsoniter",
-        "json",
-        "smoosh",
         "data processing",
         "data transformation",
-        "iterable"
+        "documents",
+        "fluent",
+        "iterable",
+        "json",
+        "json-find",
+        "json-path",
+        "jsoniter",
+        "jsonpath",
+        "transfigurator",
+        "transfigure",
+        "transfigure-json",
+        "transfigurjson",
+        "smoosh"
     ],
     "author": {
         "name": "Ben Morin",
         "url": "https://BeAnMo.github.io"
     },
     "bugs": {
-        "url": "https://github.com/BeAnMo/jsoniter/issues"
+        "url": "https://github.com/BeAnMo/transfigure-json/issues"
     },
-    "homepage": "https://github.com/BeAnMo/jsoniter#readme",
+    "homepage": "https://github.com/BeAnMo/transfigure-json#readme",
     "license": "ISC",
     "devDependencies": {
         "@babel/cli": "^7.12.10",

@@ -1,8 +1,8 @@
-import JsonFind from '../src';
+import Doc from '../src';
 import DATA from './reddit-comments.json';
 
 describe('Real life reddit comment data', () => {
-    const doc = JsonFind(DATA);
+    const doc = Doc(DATA);
     const prunedCreated = doc
         .prune(({ key }) => key === 'created')
         .smoosh()
