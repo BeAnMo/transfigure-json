@@ -1,6 +1,6 @@
 {
     "name": "transfigure-json",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Transfigure JSON. Provides JSON objects a fluent, Array-like interface for data transformations.",
     "repository": {
         "type": "git",
