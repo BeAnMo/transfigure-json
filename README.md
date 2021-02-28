@@ -156,7 +156,7 @@ JsonFindInterface = {
 <a href="#instantiation">JsonFindInstance</a> = JsonFind(doc: Object | Array, options?: Object)
 <br />
 InstanceInterface = {
-&emsp;  <a href="#instance:get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
+  <a href="#instance:get">get</a> (path?: <a href="#json-path">ValidPath</a>, options?: { useConstructor: false }) => JsonFindInstance | Object | Array,
 &emsp;  <a href="#instance:set">set</a>(path: ValidPath, value: any) => JsonFindInstance,
 &emsp;  <a href="#iterating:fold">fold</a>(proc: (accumulator: any, item: <a href="#breadth-first-stream">StreamItem</a>) => any, accumulator: any) => any,
 &emsp;  <a href="#iterating:transform">transform</a>(proc: (item: StreamItem) => any) => JsonFindInstance,
