@@ -1,7 +1,7 @@
 const { performance } = require("perf_hooks");
 const data = require("./reddit-comments.json");
 
-const Doc = require("../dist/transfigure-json");
+const Doc = require("../dist");
 
 const runtime = (proc, name = "PROCESS") => {
   let count = 0;
@@ -76,6 +76,6 @@ const main = (() => {
   const test = runtime(redditCommentExample, "example");
 
   for (let i = 0; i < 10; i++) {
-    test(Transfigurator.clone(data));
+    test(Doc.clone(data));
   }
 })();

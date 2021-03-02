@@ -111,6 +111,18 @@ describe('A json-document instance getters/setters', () => {
 describe('Json-document instance iterative methods', () => {
     const base = { a: 1, b: 2, c: [3, 4, 5] };
 
+    it('should iterate an exposed stream until finished', () => {
+        const clone = new Doc(Doc.clone(base));
+        const stream = clone.toStream();
+
+        while (!stream.empty()) {
+            expect(stream.next()).toBeTruthy();
+        }
+
+        expect(stream.empty()).toBeTruthy();
+        expect(stream.next()).toBeFalsy();
+    });
+
     it('should "prune" a nested Object by its values', () => {
         const clone = new Doc(Doc.clone(base));
 
@@ -132,5 +144,68 @@ describe('Json-document instance iterative methods', () => {
         arr[2] = 5;
 
         expect(pruned.doc).toStrictEqual({ a: 1, c: arr });
+    });
+
+    it('should fold a document by summing its values', () => {
+        const clone = new Doc(Doc.clone(base));
+
+        const summed = clone.fold((acc, { value }) => acc + value, 0);
+
+        expect(summed).toBe(15);
+    });
+
+    it('should fold a document by grouping odd and even values', () => {
+        const clone = new Doc(Doc.clone(base));
+
+        const folded = clone.fold((acc, { value }) => {
+            const name = value % 2 === 0 ? 'evens' : 'odds';
+            const nextPosn = acc.get(name).length;
+
+            return acc.set(`${name}.${nextPosn}`, value);
+        }, new Doc({ 'odds': [], 'evens': [] }));
+
+        expect(folded.get()).toStrictEqual({
+            'odds': [1, 3, 5],
+            'evens': [2, 4]
+        });
+    });
+
+    it('should square all values', () => {
+        const clone = new Doc(Doc.clone(base));
+
+        const squared = clone.transform(({ value }) => value * value);
+
+        expect(squared.get()).toStrictEqual({ a: 1, b: 4, c: [9, 16, 25] });
+    });
+
+    it('should iterate over each value and return itself', () => {
+        const clone = new Doc(Doc.clone(base));
+
+        let paths = [];
+        let squared = [];
+        const eached = clone.each(({ path }) => {
+            paths.push(path.toString());
+        }).each(({ value }) => {
+            squared.push(value * value);
+        });
+
+        expect(paths).toStrictEqual(['a', 'b', 'c.0', 'c.1', 'c.2']);
+        expect(squared).toStrictEqual([1, 4, 9, 16, 25]);
+
+        expect(eached).toBeInstanceOf(Doc);
+    });
+
+    it('should smoooooooosh', () => {
+        const clone = new Doc(Doc.clone(base));
+
+        const smooshed = clone.smoosh();
+
+        expect(smooshed.get()).toStrictEqual({
+            'a': 1,
+            'b': 2,
+            'c.0': 3,
+            'c.1': 4,
+            'c.2': 5
+        });
     });
 });

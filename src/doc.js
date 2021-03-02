@@ -65,6 +65,8 @@ Doc.prototype.each = function (proc) {
     while (!stream.empty()) {
         proc.call(this, stream.next());
     }
+
+    return this;
 };
 
 Doc.prototype.transform = function (proc) {
@@ -74,7 +76,7 @@ Doc.prototype.transform = function (proc) {
     while (!stream.empty()) {
         const current = stream.next();
 
-        results.set(current.path.toArray(), proc.call(this, current));
+        results.set(current.path.toString(), proc.call(this, current));
     }
 
     return results;
@@ -127,6 +129,10 @@ Doc.prototype.toggle = function () {
     }
 
     return new Doc(converted, this.options);
+};
+
+Doc.prototype.toStream = function () {
+    return new BFStream(this.doc, this.options.delimeter);
 };
 
 Doc.getBase = function (doc) {

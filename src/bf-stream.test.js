@@ -55,4 +55,16 @@ describe('A breadth-first stream instance', () => {
 
         expect(stream.next()).toBe(null);
     });
+
+    it('should correctly reflect the empty status', () => {
+        const stream = new BFStream(d0, '.');
+
+        for (let i = 0; i < 5; i++) {
+            expect(stream.empty()).toBeFalsy();
+
+            stream.next();
+        }
+
+        expect(stream.empty()).toBeTruthy();
+    });
 });
