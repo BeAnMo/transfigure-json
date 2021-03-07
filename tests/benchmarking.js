@@ -1,7 +1,10 @@
 const { performance } = require("perf_hooks");
 const data = require("./reddit-comments.json");
 
-const Doc = require("../dist");
+const DocModule = require("../dist");
+
+const Doc = DocModule.default;
+const Lazy = DocModule.Lazy;
 
 const runtime = (proc, name = "PROCESS") => {
   let count = 0;
@@ -49,6 +52,25 @@ const redditCommentExample = (data) => {
     .get();
 };
 
+const lazyRedditCommentExample = (data) => {
+  return new Lazy(data)
+    .prune(({ key }) => "author score created body".includes(key))
+    .fold((acc, { path, key, value }) => {
+      const root = path.join("/");
+
+      if (!acc[root]) {
+        acc[root] = {};
+      }
+
+      //return acc.set(`${root}.${key}`, value);
+      // no getters/setters yet
+      acc[root][key] = value;
+      return acc;
+    }, {})
+    .toggle()
+    .run();
+};
+
 const main = (() => {
   /**
    * 2021-02-22:
@@ -73,9 +95,12 @@ const main = (() => {
    * 23       39      76
    * 30       48      96
    */
-  const test = runtime(redditCommentExample, "example");
+  const test = runtime(redditCommentExample, "Doc");
+  const lazyTest = runtime(lazyRedditCommentExample, "Lazy");
 
   for (let i = 0; i < 10; i++) {
-    test(Doc.clone(data));
+    const x = Doc.clone(data);
+    test(x);
+    //lazyTest(x);
   }
 })();
