@@ -85,7 +85,17 @@ LazyDoc.prototype.run = function () {
   return current;
 };
 
-// !!!Need to record shape/paths of resulting document!!!
+/*
+{
+  accumulate(){
+    // State to initialize before executing the transformation.
+    // "this" bound to its own thing.
+  },
+  on(streamItem){
+    // "this" bound to the stream.
+  }
+}
+*/
 LazyDoc.register("fold", function foldWrap(proc, acc) {
   let results = acc;
 

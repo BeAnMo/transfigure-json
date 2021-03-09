@@ -100,7 +100,7 @@ const main = (() => {
 
   for (let i = 0; i < 10; i++) {
     const x = Doc.clone(data);
+    lazyTest(x);
     test(x);
-    //lazyTest(x);
   }
 })();

@@ -14,6 +14,7 @@ function BFStream(doc, delimeter) {
   this.delim = delimeter;
   // The queue contains JsonPaths.
   this.q = [];
+  this.refs = new WeakSet();
 
   // Load up the queue on instantiation.
   this.setQueue(new JsonPath([], this.delim), Object.keys(this.doc));
@@ -41,7 +42,10 @@ BFStream.prototype.next = function () {
   if (!isCompound(value)) {
     return new StreamItem(path, path.slice(-1).toString(), value);
   } else {
-    this.setQueue(path, Object.keys(value));
+    if (!this.refs.has(value)) {
+      this.refs.add(value);
+      this.setQueue(path, Object.keys(value));
+    }
 
     return this.next();
   }
