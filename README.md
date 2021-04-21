@@ -188,16 +188,16 @@ If passed invalid JSON, JsonData will throw an error. If passed a Number/String/
 
 A document instance wraps the given object. For testing/debugging, consider deep-cloning an object before passing it to the constructor to prevent unwanted mutations.
 
-- **<div id="instance-get">.get</div>**
+- **<span id="instance-get">.get</span>**
   - Returns the document at the given <a href="#json-path">path</a>. If not path is provided, `get` returns the full document. If the `useConstructor` option is set to `true`, a new TransfiguratorInstance will be returned if the given path points to an Object or Array.
-- **<div id="instance-set">.set</div>**
+- **<span id="instance-set">.set</span>**
   - Mutates the Transfigurator instance at the given path with a value and returns the instance.
 
 #### Static methods
 
-- **<div id="static-clone">.clone</div>**
+- **<span id="static-clone">.clone</span>**
   - Performs a deep clone of the given object.
-- **<div id="static-schema">.schema</div>**
+- **<span id="static-schema">.schema</span>**
   - Replaces the primitive values of an object with strings denoting the type ("string", "number", "boolean", "null").
 
 <hr />
@@ -216,21 +216,21 @@ Part of the goal of transfigure-json is to give users an interface comparable to
 
 The callbacks for all iterative instance methods bind the current instance to `this`.
 
-- **<div id="iterating-fold">.fold</div>**
+- **<span id="iterating-fold">.fold</span>**
   - Object keys are assumed to be unordered, which means there is no `Array.reduceRight` equivalent.
-- **<div id="iterating-transform">.transform</div>**
+- **<span id="iterating-transform">.transform</span>**
   - Maps a procedure to each value in a doc.
-- **<div id="iterating-prune">.prune</div>**
+- **<span id="iterating-prune">.prune</span>**
   - "Prunes" a tree returning all values that match the predicate function but maintains the shape of the original document. This may return sparse arrays.
-- **<div id="iterating-each">.each</div>**
+- **<span id="iterating-each">.each</span>**
   - Applies the given procedure to each value but does not return a result, but instead returns the instance to allow for chaining.
-- **<div id="iterating-select">.select</div>**
+- **<span id="iterating-select">.select</span>**
   - Returns the first value that matches the predicate or `undefined`.
-- **<div id="iterating-smoosh">.smoosh</div>**
+- **<span id="iterating-smoosh">.smoosh</span>**
   - Completely flattens an object to a single of Object of `{...string<JFPath>: any }`.
-- **<div id="iterating-toggle">.toggle</div>**
+- **<span id="iterating-toggle">.toggle</span>**
   - Toggles the root object between Object and Array. Toggling Object->Array creates `[...[string<key>, any]]` and Array->Object creates `{...number: any}`.
-- **<div id="iterating-toStream">.toStream</div>**
+- **<span id="iterating-toStream">.toStream</span>**
   - Exposes a <a href="#breadth-first-stream">breath-first stream</a> of the instance.
 
 <hr />
