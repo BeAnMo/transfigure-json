@@ -147,7 +147,7 @@ InstanceInterface = {
     <a href="#iterating-transform">transform</a>(proc: (item: StreamItem) => any) => TransfiguratorInstance,
     <a href="#iterating-prune">prune</a>(predicate: (item: StreamItem) => boolean) => TransfiguratorInstance,
     <a href="#iterating-each">each</a>(proc: (item: StreamItem) => any) => TransfiguratorInstance,
-    <a href="#iterating-select">select</a>(predicate: (item: StreamItem) => boolean) => any,
+    <a href="#iterating-select">select</a>(predicate: (item: StreamItem) => boolean) => StreamItem,
     <a href="#iterating-smoosh">smoosh</a>() => TransfiguratorInstance,
     <a href="#iterating-toggle">toggle</a>() => TransfiguratorInstance,
     <a href="#iterating-toStream">toStream</a>() => <a href="#breadth-first-stream">BFSteamInstance</a>
