@@ -1,50 +1,61 @@
-import JsonPath from './json-path';
 import { isCompound, getAtPath } from './utils';
 
-function BFStream(doc, delimeter) {
+export default class BFStream {
+  constructor(doc) {
     this.doc = doc;
-    this.delim = delimeter;
-    // The queue contains JsonPaths.
     this.q = [];
+    this.len = 0;
+    this.refs = new WeakSet();
 
-    // Load up the queue on instantiation.
-    this.setQueue(new JsonPath([], this.delim), Object.keys(this.doc));
-}
+    this.setQueue([], Object.keys(this.doc));
+  }
 
-BFStream.prototype.setQueue = function (path, keys) {
-    keys.forEach(key => {
-        const keyPath = path.clone().append(key);
+  *[Symbol.iterator]() {
+    while (!this.empty()) {
+      const next = this.next();
 
-        this.q.push(keyPath);
+      if (next) {
+        yield next;
+      }
+    }
+  }
+
+  setQueue(path, keys) {
+    keys.forEach((key) => {
+      this.len = this.q.push([...path, key]);
     });
 
     return this;
-};
+  }
 
-BFStream.prototype.next = function () {
+  next() {
     const path = this.q.shift();
+    this.len -= 1;
 
     if (!path) {
-        return null;
+      this.len = 0;
+      return null;
     }
 
-    const value = getAtPath(this.doc, path.toArray());
+    const value = getAtPath(this.doc, path);
 
     if (!isCompound(value)) {
-        return {
-            path,
-            value,
-            key: path.slice(-1).toString()
-        };
+      return {
+        path,
+        value,
+        key: path.slice(-1)[0],
+      };
     } else {
+      if (!this.refs.has(value)) {
+        this.refs.add(value);
         this.setQueue(path, Object.keys(value));
+      }
 
-        return this.next();
+      return this.next();
     }
-};
+  }
 
-BFStream.prototype.empty = function () {
-    return this.q.length === 0;
-};
-
-export default BFStream;
+  empty() {
+    return this.len <= 0;
+  }
+}
